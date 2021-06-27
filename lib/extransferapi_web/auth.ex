@@ -11,6 +11,13 @@ defmodule ExtransferapiWeb.Auth do
     Auth.delete_session_token(token)
   end
 
+  def fetch_current_account(conn) do
+    token = fetch_token(get_req_header(conn, "authorization"))
+    if !is_nil(token) do
+      Auth.get_account_by_session_token(token)
+    end
+  end
+
   def fetch_current_account(conn, _opts) do
     token = fetch_token(get_req_header(conn, "authorization"))
     account = token && Auth.get_account_by_session_token(token)
