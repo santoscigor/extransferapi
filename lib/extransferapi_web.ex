@@ -23,6 +23,7 @@ defmodule ExtransferapiWeb do
 
       import Plug.Conn
       import ExtransferapiWeb.Gettext
+      import ExtransferapiWeb.ControllerHelper
       alias ExtransferapiWeb.Router.Helpers, as: Routes
     end
   end
