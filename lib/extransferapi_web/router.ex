@@ -8,7 +8,8 @@ defmodule ExtransferapiWeb.Router do
   scope "/api", ExtransferapiWeb do
     pipe_through :api
 
-    get "/auth", AuthController, :index
+    get "/accounts/balance", AccountController, :get_balance
+
     post "/auth/login", AuthController, :login
     post "/auth/register", AuthController, :register
   end
