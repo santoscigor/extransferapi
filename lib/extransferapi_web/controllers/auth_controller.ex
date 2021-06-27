@@ -2,7 +2,6 @@ defmodule ExtransferapiWeb.AuthController do
   use ExtransferapiWeb, :controller
 
   alias Extransferapi.Auth
-  alias Extransferapi.Repo
   import ExtransferapiWeb.Auth
 
   action_fallback ExtransferapiWeb.FallbackController
