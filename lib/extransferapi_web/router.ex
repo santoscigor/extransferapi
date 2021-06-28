@@ -10,6 +10,8 @@ defmodule ExtransferapiWeb.Router do
 
     get "/accounts/balance", AccountController, :get_balance
 
+    post "/transactions/transfer", TransferController, :transfer
+
     post "/auth/login", AuthController, :login
     post "/auth/register", AuthController, :register
   end
