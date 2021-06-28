@@ -23,4 +23,9 @@ defmodule ExtransferapiWeb.TransferController do
     transfer = Transaction.reverse_transaction(transfer_id)
     render(conn, "register.json", transfer: transfer)
   end
+
+  def get_by_date(conn, %{"start_date" => start_date, "end_date" => end_date}) do
+    transfer = Transaction.get_transactions_by_date(start_date, end_date)
+    render(conn, "transaction_list.json", transfer: transfer)
+  end
 end

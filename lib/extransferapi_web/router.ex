@@ -12,6 +12,7 @@ defmodule ExtransferapiWeb.Router do
 
     post "/transactions/transfer", TransferController, :transfer
     post "/transactions/revert", TransferController, :revert_transfer
+    get "/transactions/get", TransferController, :get_by_date
 
     post "/auth/login", AuthController, :login
     post "/auth/register", AuthController, :register

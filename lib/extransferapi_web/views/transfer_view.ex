@@ -8,6 +8,12 @@ defmodule ExtransferapiWeb.TransferView do
     }
   end
 
+  def render("transaction_list.json", %{transfer: transfer}) do
+    %{
+      data: render_many(transfer, TransferView, "transaction_complete.json", as: :transfer),
+    }
+  end
+
   def render("transaction_complete.json", %{transfer: transfer}) do
     %{
       id: transfer.id,
