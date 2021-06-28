@@ -10,9 +10,11 @@ defmodule ExtransferapiWeb.TransferView do
 
   def render("transaction_complete.json", %{transfer: transfer}) do
     %{
-      message: "Transaction completed",
+      id: transfer.id,
+      reversal_transfer_id: transfer.reversal_transfer_id,
       value: (transfer.value)/100,
-      receiver_id: transfer.receiver_id
+      receiver_id: transfer.receiver_id,
+      sender_id: transfer.sender_id
     }
   end
 end
