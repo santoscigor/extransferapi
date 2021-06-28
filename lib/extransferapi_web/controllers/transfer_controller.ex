@@ -18,4 +18,9 @@ defmodule ExtransferapiWeb.TransferController do
       {:error, :unauthorized}
     end
   end
+
+  def revert_transfer(conn, %{"transfer_id" => transfer_id}) do
+    transfer = Transaction.reverse_transaction(transfer_id)
+    render(conn, "register.json", transfer: transfer)
+  end
 end
