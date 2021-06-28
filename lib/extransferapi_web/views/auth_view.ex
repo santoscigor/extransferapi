@@ -20,7 +20,7 @@ defmodule ExtransferapiWeb.AuthView do
   def render("privileged_user.json", %{account: account}) do
     %{
       id: account.id,
-      balance: account.balance,
+      balance: account.balance/100,
       firstname: account.firstname,
       cpf: account.cpf,
       lastname: account.lastname,

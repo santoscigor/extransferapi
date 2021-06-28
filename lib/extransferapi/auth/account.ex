@@ -11,14 +11,14 @@ defmodule Extransferapi.Auth.Account do
     field :lastname, :string
     field :cpf, :string,  precision: 11, scale: 0
     field :hashed_password, :string
-    field :balance, :decimal,  precision: 11, scale: 2
+    field :balance, :integer
     field :password, :string, virtual: true
     timestamps()
   end
 
-  def registration_changeset(user, attrs, opts \\ []) do
+  def registration_changeset(user, params, opts \\ []) do
     user
-    |> cast(attrs, @fields)
+    |> cast(params, @fields)
     |> validate_required([:firstname, :lastname, :cpf, :password, :balance])
     |> validate_cpf()
     |> validate_password(opts)
@@ -26,9 +26,7 @@ defmodule Extransferapi.Auth.Account do
 
   defp validate_cpf(changeset) do
     changeset
-    |> validate_format(:cpf, ~r/^[0-9]{11}$/,
-      message: "must be a valid cpf"
-    )
+    |> validate_format(:cpf, ~r/^[0-9]{11}$/,  message: "must be a valid cpf")
     |> validate_length(:cpf, max: 11)
     |> unsafe_validate_unique(:cpf, Extransferapi.Repo)
     |> unique_constraint(:cpf)

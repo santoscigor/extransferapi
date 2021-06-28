@@ -7,7 +7,7 @@ defmodule Extransferapi.Repo.Migrations.CreateAccountsTable do
       add :lastname, :string
       add :cpf, :string
       add :hashed_password, :string
-      add :balance, :decimal,  precision: 11, scale: 2
+      add :balance, :integer
 
       timestamps()
     end

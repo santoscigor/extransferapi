@@ -3,10 +3,10 @@ defmodule Extransferapi.Repo.Migrations.CreateTransfersTable do
 
   def change do
     create table(:transfers) do
-      add :reversal_transfer_id, :uuid, null: true
-      add :sender_id, :uuid, null: false
-      add :receiver_id, :uuid, null: false
-      add :value, :decimal,  precision: 11, scale: 2
+      add :reversal_transfer_id, :binary_id, null: true
+      add :sender_id, :binary_id, null: false
+      add :receiver_id, :binary_id, null: false
+      add :value, :integer
 
       timestamps()
     end

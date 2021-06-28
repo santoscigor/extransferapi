@@ -10,7 +10,7 @@ defmodule ExtransferapiWeb.AccountView do
 
   def render("account_balance.json", %{account: account}) do
     %{
-      balance: account.balance,
+      balance: account.balance/100,
     }
   end
 end
