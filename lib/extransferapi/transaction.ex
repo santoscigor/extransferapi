@@ -50,12 +50,14 @@ defmodule Extransferapi.Transaction do
     end
   end
 
-  def get_transactions_by_date(start_date, end_date) do
+  def get_transactions_by_date(start_date, end_date, account_id) do
     {:ok, start} = NaiveDateTime.from_iso8601(start_date <> " 00:00:00")
     {:ok, final} = NaiveDateTime.from_iso8601(end_date <> " 00:00:00")
     query = from t in Transfer,
             where:  t.inserted_at >= ^start and
-                    t.inserted_at <= ^final
+                    t.inserted_at <= ^final and
+                    t.sender_id == ^account_id,
+            order_by: t.inserted_at
 
     Repo.all(query)
   end

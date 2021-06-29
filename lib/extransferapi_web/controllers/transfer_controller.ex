@@ -25,7 +25,8 @@ defmodule ExtransferapiWeb.TransferController do
   end
 
   def get_by_date(conn, %{"start_date" => start_date, "end_date" => end_date}) do
-    transfer = Transaction.get_transactions_by_date(start_date, end_date)
+    account = Auth.fetch_current_account(conn)
+    transfer = Transaction.get_transactions_by_date(start_date, end_date, account.id)
     render(conn, "transaction_list.json", transfer: transfer)
   end
 end
