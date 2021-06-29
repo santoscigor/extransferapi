@@ -40,12 +40,13 @@ defmodule Extransferapi.Transaction do
     end
   end
 
-  def reverse_transaction(transaction_id) do
+  def reverse_transaction(transaction_id, account_id) do
     with %Transfer{} = transfer <- get_transactions_by_id(transaction_id),
           %Account{} = sender_account <- Auth.get_account!(transfer.receiver_id),
-          %Account{} = receiver_account <- Auth.get_account!(transfer.sender_id) do
+          %Account{} = receiver_account <- Auth.get_account!(transfer.sender_id),
+          true = (transfer.sender_id == account_id) do
 
-          {:ok, reverted_transfer} = Repo.insert(%Transfer{sender_id: transfer.receiver_id, receiver_id: transfer.sender_id, value: transfer.value, reversal_transfer_id: transaction_id})
+          {:ok, reverted_transfer} = Repo.insert(%Transfer{sender_id: transfer.sender_id, receiver_id: transfer.receiver_id, value: transfer.value, reversal_transfer_id: transaction_id})
           Multi.new()
           |> Multi.update(:sender_account, Changeset.change(sender_account, balance: sender_account.balance - transfer.value))
           |> Multi.update(:receiver_account, Changeset.change(receiver_account, balance: receiver_account.balance + transfer.value))

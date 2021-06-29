@@ -23,7 +23,8 @@ defmodule ExtransferapiWeb.TransferController do
   end
 
   def revert_transfer(conn, %{"transfer_id" => transfer_id}) do
-    transfer = Transaction.reverse_transaction(transfer_id)
+    account = Auth.fetch_current_account(conn)
+    transfer = Transaction.reverse_transaction(transfer_id, account.id)
     render(conn, "register.json", transfer: transfer)
   end
 
