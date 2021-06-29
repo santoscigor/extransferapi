@@ -28,7 +28,7 @@ defmodule ExtransferapiWeb.Auth do
     if conn.assigns[:current_account] do
       conn
       |> put_status(401)
-      |> Phoenix.Controller.put_view(Extransferapi.ErrorView)
+      |> Phoenix.Controller.put_view(ExtransferapiWeb.ErrorView)
       |> Phoenix.Controller.render(:"401")
       |> halt()
     else
@@ -37,12 +37,13 @@ defmodule ExtransferapiWeb.Auth do
   end
 
   def require_authenticated_account(conn, _opts) do
-    if conn.assigns[:current_account] != nil and conn.assigns[:current_account].is_active do
+    account = fetch_current_account(conn)
+    if !is_nil(account) do
       conn
     else
       conn
       |> put_status(401)
-      |> Phoenix.Controller.put_view(Extransferapi.ErrorView)
+      |> Phoenix.Controller.put_view(ExtransferapiWeb.ErrorView)
       |> Phoenix.Controller.render(:"401")
       |> halt()
     end

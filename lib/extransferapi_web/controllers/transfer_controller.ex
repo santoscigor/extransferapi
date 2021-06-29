@@ -7,7 +7,7 @@ defmodule ExtransferapiWeb.TransferController do
 
   action_fallback ExtransferapiWeb.FallbackController
 
-  plug :require_guest_account when action in [:login, :register]
+  plug :require_authenticated_account when action in [:transfer, :revert_transfer, :get_by_date]
 
   def transfer(conn, %{"receiver_cpf" => receiver_cpf, "value" => value}) do
     if account = Auth.fetch_current_account(conn) do
