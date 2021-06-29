@@ -10,12 +10,15 @@ defmodule ExtransferapiWeb.TransferController do
   plug :require_authenticated_account when action in [:transfer, :revert_transfer, :get_by_date]
 
   def transfer(conn, %{"receiver_cpf" => receiver_cpf, "value" => value}) do
-    if account = Auth.fetch_current_account(conn) do
-      token = get_token(account)
-      transfer = Transaction.register_transaction(token, value, receiver_cpf)
-      render(conn, "register.json", transfer: transfer)
-    else
-      {:error, :unauthorized}
+    token = conn
+    |> Auth.fetch_current_account()
+    |> get_token()
+
+    transfer = Transaction.register_transaction(token, value, receiver_cpf)
+
+    case transfer do
+      {:error, message} -> {:error, :bad_request, message}
+      _ ->  render(conn, "register.json", transfer: transfer)
     end
   end
 
