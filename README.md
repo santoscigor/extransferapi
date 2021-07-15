@@ -4,6 +4,13 @@
 
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Extransferapi&uri=https%3A%2F%2Fgist.github.com%2Fsantoscigor%2Fe5da37754fa7829b7bed771f994e90bd)
 
+## Next Steps
+
+- Add constraint to prevent transfers that results in negative balance
+- Tests
+- Deploy to an environment
+- Adjust transfer transaction on event
+
 ## Description
 
 This is a simplified version of an account transfer API.
